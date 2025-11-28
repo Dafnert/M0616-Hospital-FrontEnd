@@ -1,3 +1,8 @@
+.actiu {
+  color: #00c3ff;
+  font-weight: bold;
+}
+
 * {
   margin: 0;
   padding: 0;
