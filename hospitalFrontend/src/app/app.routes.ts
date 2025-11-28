@@ -1,7 +1,30 @@
 import { Routes } from '@angular/router';
-import { FindNurse } from './find-nurse/find-nurse';
+import { HomeComponent } from './pages/home/home';
+import { Login } from './pages/login/login.component';
+import { ListnursesComponent } from './listnurses/listnurses';
+import { FindNurseComponent } from './pages/find-nurse/find-nurse';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'find-nurse', pathMatch: 'full' },
-  { path: 'find-nurse', component: FindNurse }
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'nurses', component: ListnursesComponent }
+  { path: 'find-nurse', component: FindNurseComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
+
+export const routes: Routes = [
+  {
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: Login,
+  },
+  { path: 'find-nurse', component: FindNurse }
+  
+  
+  
+];
+
