@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class Login {
+export class LoginComponent {
   username = '';
   password = '';
 
