@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common'; // Agregar esta importación
 
 @Component({
   selector: 'app-find-nurse',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule], // Agregar CommonModule aquí
   templateUrl: './find-nurse.html',
   styleUrls: ['./find-nurse.css']
 })
-export class FindNurse {
-
+export class FindNurseComponent {
   userInput: string = "";
   output: string = "";
-
-  //  Base de datos de enfermeros simulada
+  
   nurses = [
     {
       name: "Ferran Arbustos",
@@ -37,30 +36,28 @@ export class FindNurse {
       shift: "Tarde"
     },
     {
-      name: "Samhanta",
+      name: "Samantha",
       age: 37,
       department: "Quirófano",
       experience: "8 años",
       shift: "Mañana"
     },
     {
-      name: "Samhanta",
-      age: 41,
-      department: "Quirófano",
+      name: "Samantha",
+      age: 25,
+      department: "Urgencias",
       experience: "8 años",
       shift: "Mañana"
     }
   ];
 
-
   findNurse() {
     const search = this.userInput.toLowerCase().trim();
-
   
     const foundList = this.nurses.filter(n =>
       n.name.toLowerCase().includes(search)
     );
-
+    
     if (foundList.length > 0) {
       this.output = foundList
         .map((n, index) =>
@@ -71,17 +68,9 @@ export class FindNurse {
           `Experiencia: ${n.experience}\n` +
           `Turno: ${n.shift}\n`
         )
-        .join("\n-------------------------\n\n");
+        .join("\n-----------------------\n\n");
     } else {
-      this.output = " No se encontró ningún enfermero con ese nombre.";
+      this.output = "❌ No se encontró ningún enfermero con ese nombre.";
     }
-  }
-
- 
-  capitalize() {
-    this.output = this.userInput
-      .split(" ")
-      .map(w => w[0]?.toUpperCase() + w.slice(1))
-      .join(" ");
   }
 }

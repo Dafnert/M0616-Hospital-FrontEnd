@@ -3,30 +3,61 @@
   <!-- Left section of the form -->
   <div class="left">
     <div>
-      <!-- Welcome message and registration link -->
       <p>HealthConnect</p>
+      <img src="/img/logo.png" />
     </div>
+
+    <!-- @if - Mostrar intentos de login (ahora fuera del div centrado) -->
+    @if (loginAttempts > 0) {
+    <div class="attempts-badge">Intentos fallidos: {{ loginAttempts }}</div>
+    }
   </div>
 
   <!-- Right section of the form -->
   <div class="right">
     <div>
-      <!-- Login heading -->
       <h1>Login</h1>
 
+      <!-- @switch - Mostrar diferentes estados del login -->
+      @switch (loginStatus) { @case ('loading') {
+      <div class="status-message loading">
+        <span class="spinner">⏳</span>
+        Verificando credenciales...
+      </div>
+      } @case ('success') {
+      <div class="status-message success">
+        {{ errorMessage }}
+      </div>
+      } @case ('error') {
+      <div class="status-message error">
+        {{ errorMessage }}
+      </div>
+      } }
+
       <!-- Username input field -->
-      <input type="text" name="username" placeholder="Username" [(ngModel)]="username" />
-      <span class="material-symbols-outlined person"> </span>
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        [(ngModel)]="username"
+        [disabled]="isLoading"
+      />
+      <span class="material-symbols-outlined person">person</span>
 
       <!-- Password input field -->
-      <input type="password" name="password" placeholder="Password" [(ngModel)]="password" />
-      <span class="material-symbols-outlined lock"> </span>
-
-      <!-- Forgot password link
-          <a href="">Forgot Password?</a> -->
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        [(ngModel)]="password"
+        [disabled]="isLoading"
+      />
+      <span class="material-symbols-outlined lock">lock</span>
 
       <!-- Login button -->
-      <button type="submit">Login</button>
+      <button type="submit" [disabled]="isLoading || loginAttempts >= errorMessages.length">
+        @if (isLoading) { Verificando... } @else { Login }
+      </button>
     </div>
   </div>
 </form>

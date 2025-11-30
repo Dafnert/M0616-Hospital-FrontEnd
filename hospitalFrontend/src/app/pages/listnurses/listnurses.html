@@ -1,24 +1,22 @@
 <div class="app-container">
-    <h1 class="main-title">LISTNURSES</h1>
-<div class="container">
-    <nav>
-        <a routerLink="/home">Home</a>
-    </nav>
+  <h1 class="main-title">LISTNURSES</h1>
 
+  <div class="container">
     <div class="image-section">
-        <img [src]="'/img/logo.jpg'" [alt]="logoAlt" />
+      <img [src]="'/img/logo.jpg'" [alt]="logoAlt" />
     </div>
 
     <div class="nurses-container">
-        @for (nurse of nurses; track nurse.id) {
-            <div class="nurse-item">
-                <h3>{{ nurse.name }}</h3>
-                <p>Especialidad: {{ nurse.specialty }}</p>
-            </div>
-        } @empty {
-            <div class="empty-message">
-                <p>No hay enfermeros</p>
-            </div>
-        }
+      @for (nurse of nurses; track nurse.id) {
+        <div class="nurse-item">
+          <h3>{{ nurse.name }}</h3>
+          <p>Especialidad: {{ nurse.specialty }}</p>
+        </div>
+      } @empty {
+        <div class="empty-message">
+          <p>No hay enfermeros</p>
+        </div>
+      }
     </div>
+  </div>
 </div>
