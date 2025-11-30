@@ -42,7 +42,7 @@
         [(ngModel)]="username"
         [disabled]="isLoading"
       />
-      <span class="material-symbols-outlined person">person</span>
+      <span class="material-symbols-outlined person"></span>
 
       <!-- Password input field -->
       <input
@@ -52,7 +52,7 @@
         [(ngModel)]="password"
         [disabled]="isLoading"
       />
-      <span class="material-symbols-outlined lock">lock</span>
+      <span class="material-symbols-outlined lock"></span>
 
       <!-- Login button -->
       <button type="submit" [disabled]="isLoading || loginAttempts >= errorMessages.length">
