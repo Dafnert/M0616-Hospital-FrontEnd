@@ -1,0 +1,21 @@
+<div class="main-content">
+  <div class="container">
+    <div class="logo-container">
+      <img src="img/logo.jpg" alt="Logo Hospital" class="logo" />
+    </div>
+    <h1>Buscar Enfermero</h1>
+    <div class="search-box">
+      <input
+        type="text"
+        [(ngModel)]="userInput"
+        placeholder="Escribe el nombre del enfermero..."
+        class="search-input"
+      />
+      <button (click)="findNurse()" class="search-button">
+        <span class="button-text">Buscar</span>
+        <span class="button-icon">🔍</span>
+      </button>
+    </div>
+    <div class="output" *ngIf="output">{{ output }}</div>
+  </div>
+</div>

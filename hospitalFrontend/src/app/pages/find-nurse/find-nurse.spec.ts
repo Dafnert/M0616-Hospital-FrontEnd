@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FindNurse } from './find-nurse';
+import { FindNurseComponent } from './find-nurse';
 import { FormsModule } from '@angular/forms';
 
 
 describe('FindNurse', () => {
-  let component: FindNurse;
-  let fixture: ComponentFixture<FindNurse>;
+  let component: FindNurseComponent;
+  let fixture: ComponentFixture<FindNurseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FindNurse]
+      imports: [FindNurseComponent]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FindNurse);
+    fixture = TestBed.createComponent(FindNurseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

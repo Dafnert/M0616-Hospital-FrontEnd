@@ -1,3 +1,13 @@
+<header class="main-header" *ngIf="showHeader">
+  <div class="logo">
+    <img src="/img/logo.png" />
+  </div>
+  <nav>
+    <a routerLink="/home">HOME</a>
+    <a routerLink="/nurses">LISTA DE ENFERMEROS</a>
+    <a routerLink="/find-nurse">BUSCAR ENFERMERO</a>
+  </nav>
+</header>
 <div class="container-fluid">
   <router-outlet></router-outlet>
 </div>

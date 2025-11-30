@@ -6,7 +6,6 @@ import { RouterLinkActive } from "@angular/router";
   standalone: true,
   templateUrl: './home.html',
   styleUrls: ['./home.css'],
-  imports: [RouterLinkActive]
 })
 export class HomeComponent {
   title="HealthCare Connect"

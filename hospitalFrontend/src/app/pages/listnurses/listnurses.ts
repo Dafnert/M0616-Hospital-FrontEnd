@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-listnurses',
   templateUrl: './listnurses.html',
   styleUrls: ['./listnurses.css'],
-  imports: [RouterLink]
 })
 export class ListnursesComponent {
   logoAlt: string = "Logo hospital";
