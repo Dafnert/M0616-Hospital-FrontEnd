@@ -64,9 +64,8 @@ div.left > div:first-child p {
 }
 
 div.left > div:first-child img {
-  width: 120px;
+  width: 400px;
   height: auto;
-  filter: brightness(0) invert(1);
   margin-top: 10px;
 }
 
