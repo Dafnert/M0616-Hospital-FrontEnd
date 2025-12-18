@@ -68,6 +68,7 @@ export class LoginComponent {
     }, 1500);
   }
 
+
   getStatusColor(): string {
     switch (this.loginStatus) {
       case 'success': return '#10b981';
@@ -76,4 +77,8 @@ export class LoginComponent {
       default: return '#6b7280';
     }
   }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
+ }
 }

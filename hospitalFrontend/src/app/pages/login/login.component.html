@@ -58,6 +58,9 @@
       <button type="submit" [disabled]="isLoading || loginAttempts >= errorMessages.length">
         @if (isLoading) { Verificando... } @else { Login }
       </button>
+
+      <!-- Register button -->
+      <button type="button" class="register-btn" (click)="goToRegister()"> Registrarse </button>
     </div>
   </div>
 </form>
