@@ -22,16 +22,14 @@ private nurses: Nurse[] = [
   }
    register(nurse: Nurse): boolean {
 
-    // Comprobar si el username ya existe
     const exists = this.nurses.some(
       n => n.username === nurse.username
     );
 
     if (exists) {
-      return false; // username duplicado
+      return false; 
     }
 
-    // Generar ID automáticamente
     nurse.id = this.nurses.length > 0
       ? Math.max(...this.nurses.map(n => n.id)) + 1
       : 1;
