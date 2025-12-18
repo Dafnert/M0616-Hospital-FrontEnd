@@ -64,4 +64,17 @@ export class LoginComponent {
       this.isLoading = false;
     }, 1500);
   }
+
+  getStatusColor(): string {
+    switch (this.loginStatus) {
+      case 'success': return '#10b981';
+      case 'error': return '#ef4444';
+      case 'loading': return '#f59e0b';
+      default: return '#6b7280';
+    }
+  }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
+ }
 }
