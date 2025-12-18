@@ -20,7 +20,9 @@ export class App {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       // Ocultar header SOLO en login
-      this.showHeader = event.url !== '/login';
+        this.showHeader =
+          event.url !== '/login' &&
+          event.url !== '/register';
     });
   }
 }

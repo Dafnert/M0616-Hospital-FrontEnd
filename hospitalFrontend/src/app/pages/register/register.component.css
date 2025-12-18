@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -8,13 +7,11 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* FONDO */
 body {
   background: linear-gradient(135deg, #00788f, #0097b2);
   min-height: 100vh;
 }
 
-/* CONTENEDOR PRINCIPAL */
 form {
   width: 850px;
   height: 550px;
@@ -31,7 +28,6 @@ form {
   box-shadow: 0 10px 40px rgba(0, 120, 143, 0.3);
 }
 
-/* IZQUIERDA → FORMULARIO (BLANCO) */
 .left {
   width: 50%;
   height: 100%;
@@ -78,7 +74,6 @@ form {
   cursor: pointer;
 }
 
-/* DERECHA → LOGO (AZUL) */
 .right {
   width: 50%;
   height: 100%;

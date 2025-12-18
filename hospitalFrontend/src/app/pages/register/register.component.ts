@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Nurse } from '../../models/nurse';
 import { NurseService } from '../../services/nurse.service';
 
@@ -14,9 +15,19 @@ export class RegisterComponent {
 
   nurse: Nurse = new Nurse();
 
-  constructor(private nurseService: NurseService) {}
+  constructor(
+    private nurseService: NurseService,
+    private router: Router
+  ) {}
 
   register() {
-    this.nurseService.register(this.nurse);
+    const success = this.nurseService.register(this.nurse);
+
+    if (success) {
+      alert('Registro exitoso, inicia sesión');
+      this.router.navigate(['/login']);
+    } else {
+      alert('El username ya existe');
+    }
   }
 }
