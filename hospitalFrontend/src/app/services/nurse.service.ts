@@ -39,8 +39,4 @@ private nurses: Nurse[] = [
     this.nurses.push(nurse);
     return true;
   }
-
-  getNurse():Array<Nurse>{
-        return this.nurses;
-    }
 }
