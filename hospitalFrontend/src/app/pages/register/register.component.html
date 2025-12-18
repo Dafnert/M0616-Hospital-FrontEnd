@@ -1,0 +1,62 @@
+<form (ngSubmit)="register()" #registerForm="ngForm">
+
+  <!-- IZQUIERDA → FORMULARIO -->
+  <div class="left">
+    <div>
+      <h1>Registro</h1>
+
+      <input
+        type="text"
+        name="name"
+        placeholder="Nombre"
+        [(ngModel)]="nurse.name"
+        required
+      />
+
+      <input
+        type="text"
+        name="surname"
+        placeholder="Apellido"
+        [(ngModel)]="nurse.surname"
+        required
+      />
+
+      <input
+        type="number"
+        name="age"
+        placeholder="Edad"
+        [(ngModel)]="nurse.age"
+        required
+      />
+
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        [(ngModel)]="nurse.username"
+        required
+      />
+
+      <input
+        type="password"
+        name="password"
+        placeholder="Contraseña"
+        [(ngModel)]="nurse.password"
+        required
+      />
+
+      <button type="submit" [disabled]="registerForm.invalid">
+        Registrarse
+      </button>
+    </div>
+  </div>
+
+  <!-- DERECHA → IMAGEN -->
+  <div class="right">
+    <div>
+      <p>HealthConnect</p>
+      <img src="/img/logo.png" />
+    </div>
+  </div>
+
+</form>
