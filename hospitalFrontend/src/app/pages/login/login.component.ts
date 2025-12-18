@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NurseService } from '../../services/nurse.service';
+import { Nurse } from '../../models/nurse';
+
 
 @Component({
   selector: 'app-login',
@@ -11,63 +14,56 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
-  errorMessage: string = '';
-  loginAttempts: number = 0;
-  isLoading: boolean = false;
+
+  username = '';
+  password = '';
+
+  loginAttempts = 0;
+  isLoading = false;
+
   loginStatus: 'idle' | 'loading' | 'success' | 'error' = 'idle';
+  errorMessage = '';
 
-  // Lista de usuarios permitidos (simulación)
-  allowedUsers = [
-    { username: 'admin', password: 'admin123', role: 'Administrador' },
-    { username: 'doctor', password: 'doctor123', role: 'Doctor' },
-    { username: 'enfermero', password: 'enfermero123', role: 'Enfermero' }
-  ];
-
-  // Mensajes de error según intentos
   errorMessages = [
-    '❌ Usuario o contraseña incorrectos',
-    '⚠️ Segundo intento fallido. Verifica tus credenciales',
-    '🚫 Último intento antes del bloqueo temporal',
-    '🔒 Demasiados intentos fallidos.'
+    'Usuario o contraseña incorrectos',
+    'Segundo intento fallido',
+    'Último intento',
+    'Usuario bloqueado'
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private _nurseService: NurseService,
+    private router: Router
+  ) {}
 
   login() {
     this.isLoading = true;
     this.loginStatus = 'loading';
-    this.errorMessage = '';
 
-    // Simular delay de autenticación
     setTimeout(() => {
-      const user = this.allowedUsers.find(
-        u => u.username === this.username && u.password === this.password
-      );
+      const nurse: Nurse | null =
+        this._nurseService.login(this.username, this.password);
 
-      if (user) {
+      if (nurse) {
         this.loginStatus = 'success';
-        this.errorMessage = `✅ Bienvenido ${user.role}`;
-        
+        this.errorMessage = `Bienvenido ${nurse.name}`;
+
         setTimeout(() => {
           this.router.navigate(['/home']);
         }, 1000);
+
       } else {
-        this.loginStatus = 'error';
         this.loginAttempts++;
-        
-        if (this.loginAttempts >= this.errorMessages.length) {
-          this.errorMessage = this.errorMessages[this.errorMessages.length - 1];
-        } else {
-          this.errorMessage = this.errorMessages[this.loginAttempts - 1];
-        }
+        this.loginStatus = 'error';
+        this.errorMessage =
+          this.errorMessages[
+            Math.min(this.loginAttempts - 1, this.errorMessages.length - 1)
+          ];
       }
-      
+
       this.isLoading = false;
     }, 1500);
   }
-
 
   getStatusColor(): string {
     switch (this.loginStatus) {
