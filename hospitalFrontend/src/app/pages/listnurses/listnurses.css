@@ -39,6 +39,14 @@ nav a:hover {
     border: 3px solid #e9ecef;
 }
 
+.main-title {
+    text-align: center;
+    color: #1a237e;
+    font-size: 28px;
+    margin: 20px 0;
+    padding: 10px;
+}
+
 .nurses-container {
     margin-top: 30px;
 }
@@ -51,11 +59,28 @@ nav a:hover {
     margin: 15px 0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .nurse-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* FOTO DEL ENFERMERO */
+.nurse-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #3498db;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.nurse-info {
+    flex: 1;
 }
 
 .nurse-item h3 {
@@ -80,11 +105,4 @@ nav a:hover {
     background: white;
     border-radius: 8px;
     border: 2px dashed #bdc3c7;
-}
-.main-title {
-    text-align: center;
-    color: #1a237e;
-    font-size: 28px;
-    margin: 20px 0;
-    padding: 10px;
 }
