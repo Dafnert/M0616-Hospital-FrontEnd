@@ -17,7 +17,7 @@ private nurses: Nurse[] = [
     return nurse ?? null;
   }
 
-   getNurse():Array<Nurse>{
+  getNurse():Array<Nurse>{
         return this.nurses;
   }
    register(nurse: Nurse): boolean {
@@ -36,5 +36,13 @@ private nurses: Nurse[] = [
 
     this.nurses.push(nurse);
     return true;
+  }
+
+  findByName(name: string): Nurse[] {
+    const search = name.toLowerCase().trim();
+
+    return this.nurses.filter(n =>
+      n.name.toLowerCase().includes(search)
+    );
   }
 }

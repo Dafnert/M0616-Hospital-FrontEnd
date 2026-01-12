@@ -1,17 +1,25 @@
-<div class="search-box">
-  <input
-    type="text"
-    [(ngModel)]="userInput"
-    placeholder="Escribe el nombre del enfermero..."
-    class="search-input"
-  />
+<div class="main-content">
+  <div class="container">
 
-  <button (click)="findNurse()" class="search-button">
-    <span class="button-text">Buscar</span>
-    <span class="button-icon">🔍</span>
-  </button>
-</div>
+    <h1>Buscar enfermero</h1>
 
-<div class="output" *ngIf="output">
-  {{ output }}
+    <div class="search-box">
+      <input
+        type="text"
+        [(ngModel)]="userInput"
+        placeholder="Escribe el nombre del enfermero..."
+        class="search-input"
+      />
+
+      <button (click)="findNurse()" class="search-button">
+        <span class="button-text">Buscar</span>
+        <span class="button-icon">🔍</span>
+      </button>
+    </div>
+
+    <div class="output" *ngIf="output">
+      <pre>{{ output }}</pre>
+    </div>
+
+  </div>
 </div>

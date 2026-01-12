@@ -15,11 +15,9 @@ export class App {
   showHeader = true;
 
   constructor(private router: Router) {
-    // Escuchar cambios de ruta para mostrar/ocultar header
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      // Ocultar header SOLO en login
         this.showHeader =
           event.url !== '/login' &&
           event.url !== '/register';
