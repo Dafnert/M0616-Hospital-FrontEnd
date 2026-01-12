@@ -6,7 +6,6 @@ html, body {
   background: linear-gradient(135deg, #00788f, #0097b2);
 }
 
-/* Contenedor principal para centrar */
 .main-content {
   min-height: calc(100vh - 125px); /* Resta la altura del navbar */
   display: flex;
@@ -49,7 +48,7 @@ html, body {
 }
 
 .logo {
-  width: 200px ; /* Aumentado de 80px a 120px */
+  width: 200px ;
   height: auto;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
   transition: transform 0.3s ease;
