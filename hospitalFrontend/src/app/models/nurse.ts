@@ -6,6 +6,7 @@ export class Nurse{
     speciality:string="";
     username:string="";
     password:string="";
+    img: string=""
     constructor(id =0,name="",surname="", age =0, speciality="", username="", password="" ){
         this.id=id;
         this.name=name;
@@ -14,6 +15,7 @@ export class Nurse{
         this.speciality=speciality;
         this.username=username;
         this.password=password;
+        this.img=this.img;
     }
 }
  

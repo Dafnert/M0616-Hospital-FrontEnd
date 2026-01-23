@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Nurse } from '../models/nurse';
-
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class NurseService{
-    
+  constructor(private conexHttp:HttpClient) { }
+  url = "http://localhost:8000/nurse";
+
 private nurses: Nurse[] = [
     new Nurse(1, 'Ana', 'López', 30, 'UCI', 'enfermero', 'enfermero123'),
     new Nurse(2, 'Carlos', 'Martín', 35, 'Pediatría', 'admin', 'admin123')
@@ -17,10 +20,19 @@ private nurses: Nurse[] = [
     return nurse ?? null;
   }
 
-  getNurse():Array<Nurse>{
-        return this.nurses;
+  getNurse():Observable<Nurse[]>{
+      return this.conexHttp.get<Nurse[]>(this.url);
   }
-   register(nurse: Nurse): boolean {
+  nurseGet():Observable<any>{
+    return this.conexHttp.get(this.url);
+  }
+  getNurseHeaders():Observable<Nurse[]> {
+    return this.conexHttp.get <Nurse[]> (this.url,
+  {headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    );
+  }
+ 
+  register(nurse: Nurse): boolean {
 
     const exists = this.nurses.some(
       n => n.username === nurse.username
@@ -45,4 +57,7 @@ private nurses: Nurse[] = [
       n.name.toLowerCase().includes(search)
     );
   }
+  getAll(): Observable<Nurse[]> {
+    return this.conexHttp.get<Nurse[]>(`${this.url}/index`);
+}
 }
