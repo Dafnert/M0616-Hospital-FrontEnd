@@ -4,7 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { ListnursesComponent } from './pages/listnurses/list-nurses';
 import { FindNurseComponent } from './pages/find-nurse/find-nurse';
 import { RegisterComponent } from './pages/register/register.component';
-
+import { ProfileComponent } from './profile/profile';
 export const routes: Routes = [
   { path: '',
     redirectTo: 'login',
@@ -24,6 +24,9 @@ export const routes: Routes = [
   },
   { path: 'find-nurse',
     component: FindNurseComponent
+  },
+   { path: 'profile',
+    component: ProfileComponent
   },
   { path: '**',
     redirectTo: '/login' 

@@ -21,18 +21,6 @@ private nurses: Nurse[] = [
     const data = { username, password };
     return this.conexHttp.post<LoginResponse>(`${this.url}/login`, data, { headers });
   }
-
-  getNurse():Observable<Nurse[]>{
-      return this.conexHttp.get<Nurse[]>(this.url);
-  }
-  nurseGet():Observable<any>{
-    return this.conexHttp.get(this.url);
-  }
-  getNurseHeaders():Observable<Nurse[]> {
-    return this.conexHttp.get <Nurse[]> (this.url,
-  {headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
-    );
-  }
  
   register(nurse: Nurse): boolean {
 
@@ -61,5 +49,8 @@ private nurses: Nurse[] = [
   }
   getAll(): Observable<Nurse[]> {
     return this.conexHttp.get<Nurse[]>(`${this.url}/index`);
+}
+readById(id: number): Observable<any> {
+  return this.conexHttp.get<any>(`${this.url}/${id}`);
 }
 }
