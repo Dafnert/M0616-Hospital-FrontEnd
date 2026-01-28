@@ -47,6 +47,7 @@ this._nurseService.login(this.username, this.password).subscribe({
       const nurse = response.nurse;
 
       localStorage.setItem('id', nurse.id.toString());
+      console.log('ID guardado:', nurse.id);
 
       this.loginStatus = 'success';
       this.errorMessage = `Bienvenido ${nurse.name}`;
