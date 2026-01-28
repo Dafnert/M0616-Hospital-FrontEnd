@@ -28,16 +28,16 @@ header {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: white;
-  font-weight: bold;
-  font-size: 1.4rem;
 }
 
 .logo img {
-  width: 300px;
-  height: 100px;
+  width: 200px;  
+  height: auto;
 }
-
+nav {
+  display: flex;
+  align-items: center;
+}
 nav a {
   margin-left: 25px;
   color: white;
@@ -83,4 +83,11 @@ button {
 
 button:hover {
   background-color: #00788f;
+}
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
 }
