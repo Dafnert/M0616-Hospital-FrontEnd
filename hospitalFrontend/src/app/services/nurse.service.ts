@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Nurse } from '../models/nurse';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LoginResponse, ResponseMessage } from '../messages/ResponseMessage';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,11 +15,11 @@ private nurses: Nurse[] = [
     new Nurse(1, 'Ana', 'López', 30, 'UCI', 'enfermero', 'enfermero123'),
     new Nurse(2, 'Carlos', 'Martín', 35, 'Pediatría', 'admin', 'admin123')
   ];
-   login(username: string, password: string): Nurse | null {
-    const nurse = this.nurses.find(
-      n => n.username === username && n.password === password
-    );
-    return nurse ?? null;
+  
+  login(username: string, password: string): Observable<LoginResponse> {
+    const headers = { 'Content-Type': 'application/json' };
+    const data = { username, password };
+    return this.conexHttp.post<LoginResponse>(`${this.url}/login`, data, { headers });
   }
 
   getNurse():Observable<Nurse[]>{
