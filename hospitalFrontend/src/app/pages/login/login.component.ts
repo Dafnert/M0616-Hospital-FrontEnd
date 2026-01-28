@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,9 +11,10 @@ import { Nurse } from '../../models/nurse';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers:[NurseService]
 })
-export class LoginComponent {
+export class LoginComponent{
 
   username = '';
   password = '';
@@ -37,33 +38,37 @@ export class LoginComponent {
   ) {}
 
   login() {
-    this.isLoading = true;
-    this.loginStatus = 'loading';
+  this.isLoading = true;
+  this.loginStatus = 'loading';
 
-    setTimeout(() => {
-      const nurse: Nurse | null =
-        this._nurseService.login(this.username, this.password);
+this._nurseService.login(this.username, this.password).subscribe({
+  next: (response) => {
+    if (response.success) {
+      const nurse = response.nurse;
 
-      if (nurse) {
-        this.loginStatus = 'success';
-        this.errorMessage = `Bienvenido ${nurse.name}`;
+      localStorage.setItem('nurseId', nurse.id.toString());
 
-        setTimeout(() => {
-          this.router.navigate(['/home']);
-        }, 1000);
+      this.loginStatus = 'success';
+      this.errorMessage = `Bienvenido ${nurse.name}`;
 
-      } else {
-        this.loginAttempts++;
-        this.loginStatus = 'error';
-        this.errorMessage =
-          this.errorMessages[
-            Math.min(this.loginAttempts - 1, this.errorMessages.length - 1)
-          ];
-      }
-
-      this.isLoading = false;
-    }, 1500);
+      setTimeout(() => {
+        this.router.navigate(['/home']);
+      }, 1000);
+    }
+    this.isLoading = false;
+  },
+  error: () => {
+    this.loginAttempts++;
+    this.loginStatus = 'error';
+    this.errorMessage =
+      this.errorMessages[
+        Math.min(this.loginAttempts - 1, this.errorMessages.length - 1)
+      ];
+    this.isLoading = false;
   }
+});
+}
+
 
   getStatusColor(): string {
     switch (this.loginStatus) {
