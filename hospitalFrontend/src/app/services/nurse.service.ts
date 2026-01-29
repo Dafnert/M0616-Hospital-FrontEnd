@@ -53,4 +53,7 @@ private nurses: Nurse[] = [
 readById(id: number): Observable<any> {
   return this.conexHttp.get<any>(`${this.url}/${id}`);
 }
+updateNurse(id: number, nurse: Nurse): Observable<any> {
+  return this.conexHttp.put<any>(`${this.url}/${id}`, nurse);
+}
 }

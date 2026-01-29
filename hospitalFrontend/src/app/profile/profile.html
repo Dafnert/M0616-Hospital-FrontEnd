@@ -1,4 +1,4 @@
-<form (ngSubmit)="readById()" #registerForm="ngForm">
+<form (ngSubmit)="open()" #profileForm="ngForm">
 
   <div class="left">
     <div>
@@ -49,10 +49,18 @@
         [(ngModel)]="nurse.password"
         required
       />
-
-      <button type="submit" [disabled]="registerForm.invalid">
-        Modificar datos
-      </button>
+     <button type="submit" 
+       [disabled]="profileForm.invalid">
+        GUARDAR
+      </button> 
     </div>
   </div>
 </form>
+      <div class="modal" *ngIf="confirm">
+        <div class="modal-content">
+          <h2>Confirmar cambios</h2>
+          <p>Estás seguro de modificar los datos?</p>
+          <button type="button" class="confirm" (click)="confirmUpdate()">Sí</button>
+          <button type="button" class="cancel" (click)="cancelUpdate()">No</button>
+        </div>
+      </div>

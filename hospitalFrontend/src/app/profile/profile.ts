@@ -11,8 +11,7 @@ import { Nurse } from '../models/nurse';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './profile.html',
-  styleUrl: './profile.css',
-  providers:[NurseService]
+  styleUrls: ['./profile.css'],
 })
 
 
@@ -21,7 +20,6 @@ export class ProfileComponent implements OnInit {
   id!: number;
  constructor(
     private _nurseService: NurseService,
-    private router: Router
   ) {}
 ngOnInit(): void {
   const storedId = localStorage.getItem('id');
@@ -48,5 +46,32 @@ ngOnInit(): void {
         alert('Error al cargar el perfil');
       }
     });
+  }
+  updateNurse():void{
+
+    this._nurseService.updateNurse(this.id, this.nurse).subscribe({
+      next:(response) => {
+        if(response.success){
+          this.nurse=response.nurse;
+          this.readById();
+        }else{
+          alert(response.message);
+        }
+      },
+      error: (err)=>{
+        alert('ERROR UPDATE NURSE')
+      }
+    })
+  }
+  confirm = false;
+  open():void{
+    this.confirm=true;
+  }
+  cancelUpdate():void{
+    this.confirm=false;
+  }
+  confirmUpdate():void{
+    this.confirm=false;
+    this.updateNurse()
   }
 }
