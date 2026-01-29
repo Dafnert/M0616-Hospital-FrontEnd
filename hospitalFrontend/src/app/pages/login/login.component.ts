@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,9 +11,10 @@ import { Nurse } from '../../models/nurse';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers:[NurseService]
 })
-export class LoginComponent {
+export class LoginComponent{
 
   username = '';
   password = '';
@@ -35,33 +36,39 @@ export class LoginComponent {
     private _nurseService: NurseService,
     private router: Router
   ) {}
-
- login() {
+  
+  login() {
   this.isLoading = true;
   this.loginStatus = 'loading';
 
-  this._nurseService.login(this.username, this.password).subscribe({
-    next: (res) => {
-      this.isLoading = false;
+this._nurseService.login(this.username, this.password).subscribe({
+  next: (response) => {
+    if (response.success) {
+      const nurse = response.nurse;
 
-      if (res.success) {
-        this.loginStatus = 'success';
-        this.errorMessage = `Bienvenido ${res.nurse.name}`;
+      localStorage.setItem('id', nurse.id.toString());
+      console.log('ID guardado:', nurse.id)
 
-        setTimeout(() => {
-          this.router.navigate(['/home']);
-        }, 1000);
+      this.loginStatus = 'success';
+      this.errorMessage = `Bienvenido ${nurse.name}`;
 
-      } else {
-        this.handleLoginError();
-      }
-    },
-    error: (err) => {
-      console.error(err);
-      this.isLoading = false;
-      this.handleLoginError();
+
+      setTimeout(() => {
+        this.router.navigate(['/home']);
+      }, 1000);
     }
-  });
+    this.isLoading = false;
+  },
+  error: () => {
+    this.loginAttempts++;
+    this.loginStatus = 'error';
+    this.errorMessage =
+      this.errorMessages[
+        Math.min(this.loginAttempts - 1, this.errorMessages.length - 1)
+      ];
+    this.isLoading = false;
+  }
+});
 }
 
 
