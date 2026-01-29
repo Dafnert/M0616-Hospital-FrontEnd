@@ -36,7 +36,7 @@ export class LoginComponent{
     private _nurseService: NurseService,
     private router: Router
   ) {}
-
+  
   login() {
   this.isLoading = true;
   this.loginStatus = 'loading';
@@ -47,10 +47,11 @@ this._nurseService.login(this.username, this.password).subscribe({
       const nurse = response.nurse;
 
       localStorage.setItem('id', nurse.id.toString());
-      console.log('ID guardado:', nurse.id);
+      console.log('ID guardado:', nurse.id)
 
       this.loginStatus = 'success';
       this.errorMessage = `Bienvenido ${nurse.name}`;
+
 
       setTimeout(() => {
         this.router.navigate(['/home']);
@@ -83,4 +84,14 @@ this._nurseService.login(this.username, this.password).subscribe({
   goToRegister() {
     this.router.navigate(['/register']);
  }
+
+ private handleLoginError() {
+  this.loginAttempts++;
+  this.loginStatus = 'error';
+  this.errorMessage =
+    this.errorMessages[
+      Math.min(this.loginAttempts - 1, this.errorMessages.length - 1)
+    ];
+ }
+
 }
