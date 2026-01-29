@@ -1,48 +1,33 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Nurse } from '../models/nurse';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NurseService{
-    
-private nurses: Nurse[] = [
-    new Nurse(1, 'Ana', 'López', 30, 'UCI', 'enfermero', 'enfermero123'),
-    new Nurse(2, 'Carlos', 'Martín', 35, 'Pediatría', 'admin', 'admin123')
-  ];
-   login(username: string, password: string): Nurse | null {
-    const nurse = this.nurses.find(
-      n => n.username === username && n.password === password
-    );
-    return nurse ?? null;
+export class NurseService {
+
+  private apiUrl = 'http://localhost:8000/nurse';
+
+  constructor(private http: HttpClient) {}
+
+  register(nurse: Nurse): Observable<any> {
+    return this.http.post(this.apiUrl, nurse);
   }
 
-  getNurse():Array<Nurse>{
-        return this.nurses;
-  }
-   register(nurse: Nurse): boolean {
-
-    const exists = this.nurses.some(
-      n => n.username === nurse.username
-    );
-
-    if (exists) {
-      return false; 
-    }
-
-    nurse.id = this.nurses.length > 0
-      ? Math.max(...this.nurses.map(n => n.id)) + 1
-      : 1;
-
-    this.nurses.push(nurse);
-    return true;
+  login(username: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, {
+      username,
+      password
+    });
   }
 
-  findByName(name: string): Nurse[] {
-    const search = name.toLowerCase().trim();
+  getAll(): Observable<Nurse[]> {
+    return this.http.get<Nurse[]>(`${this.apiUrl}/index`);
+  }
 
-    return this.nurses.filter(n =>
-      n.name.toLowerCase().includes(search)
-    );
+  findByName(name: string): Observable<Nurse[]> {
+    return this.http.get<Nurse[]>(`${this.apiUrl}/name/${name}`);
   }
 }

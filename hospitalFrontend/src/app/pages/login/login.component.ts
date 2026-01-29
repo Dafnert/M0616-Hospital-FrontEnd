@@ -36,34 +36,34 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  login() {
-    this.isLoading = true;
-    this.loginStatus = 'loading';
+ login() {
+  this.isLoading = true;
+  this.loginStatus = 'loading';
 
-    setTimeout(() => {
-      const nurse: Nurse | null =
-        this._nurseService.login(this.username, this.password);
+  this._nurseService.login(this.username, this.password).subscribe({
+    next: (res) => {
+      this.isLoading = false;
 
-      if (nurse) {
+      if (res.success) {
         this.loginStatus = 'success';
-        this.errorMessage = `Bienvenido ${nurse.name}`;
+        this.errorMessage = `Bienvenido ${res.nurse.name}`;
 
         setTimeout(() => {
           this.router.navigate(['/home']);
         }, 1000);
 
       } else {
-        this.loginAttempts++;
-        this.loginStatus = 'error';
-        this.errorMessage =
-          this.errorMessages[
-            Math.min(this.loginAttempts - 1, this.errorMessages.length - 1)
-          ];
+        this.handleLoginError();
       }
-
+    },
+    error: (err) => {
+      console.error(err);
       this.isLoading = false;
-    }, 1500);
-  }
+      this.handleLoginError();
+    }
+  });
+}
+
 
   getStatusColor(): string {
     switch (this.loginStatus) {
@@ -77,4 +77,14 @@ export class LoginComponent {
   goToRegister() {
     this.router.navigate(['/register']);
  }
+
+ private handleLoginError() {
+  this.loginAttempts++;
+  this.loginStatus = 'error';
+  this.errorMessage =
+    this.errorMessages[
+      Math.min(this.loginAttempts - 1, this.errorMessages.length - 1)
+    ];
+ }
+
 }
