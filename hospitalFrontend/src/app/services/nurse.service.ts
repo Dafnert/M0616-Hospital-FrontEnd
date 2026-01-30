@@ -40,17 +40,16 @@ private nurses: Nurse[] = [
     return true;
   }
 
-  findByName(name: string): Nurse[] {
-    const search = name.toLowerCase().trim();
-
-    return this.nurses.filter(n =>
-      n.name.toLowerCase().includes(search)
-    );
-  }
-  getAll(): Observable<Nurse[]> {
+  
+  
+getAll(): Observable<Nurse[]> {
     return this.conexHttp.get<Nurse[]>(`${this.url}/index`);
 }
 readById(id: number): Observable<any> {
   return this.conexHttp.get<any>(`${this.url}/${id}`);
 }
+findByName(name: string): Observable<any> {
+  return this.conexHttp.get<any>(`${this.url}/name/${name}`);
+}
+
 }

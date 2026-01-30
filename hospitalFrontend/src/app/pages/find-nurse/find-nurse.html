@@ -9,6 +9,7 @@
         [(ngModel)]="userInput"
         placeholder="Escribe el nombre del enfermero..."
         class="search-input"
+        (keyup.enter)="findNurse()"
       />
 
       <button (click)="findNurse()" class="search-button">
@@ -17,8 +18,21 @@
       </button>
     </div>
 
-    <div class="output" *ngIf="output">
-      <pre>{{ output }}</pre>
+    <!-- Mensaje de error -->
+    <div class="error-message" *ngIf="errorMessage">
+      <p>{{ errorMessage }}</p>
+    </div>
+
+    <!-- Resultados -->
+    <div class="results" *ngIf="searchResults.length > 0">
+      <h2>Resultados encontrados:</h2>
+      <div class="nurse-card" *ngFor="let nurse of searchResults">
+        <p><strong>ID:</strong> {{ nurse.id }}</p>
+        <p><strong>Nombre:</strong> {{ nurse.name }} {{ nurse.surname }}</p>
+        <p><strong>Edad:</strong> {{ nurse.age }}</p>
+        <p><strong>Especialidad:</strong> {{ nurse.speciality }}</p>
+        <p><strong>Usuario:</strong> {{ nurse.username }}</p>
+      </div>
     </div>
 
   </div>

@@ -13,28 +13,34 @@ import { NurseService } from '../../services/nurse.service';
   styleUrls: ['./find-nurse.css']
 })
 export class FindNurseComponent {
-
   userInput: string = '';
-  output: string = '';
+   searchResults: any[] = [];
+  errorMessage: string = '';
 
   constructor(private nurseService: NurseService) {}
 
   findNurse(): void {
-    const foundList = this.nurseService.findByName(this.userInput) as any[];
-
-    if (foundList.length > 0) {
-      this.output = foundList
-        .map((n: any, index: number) =>
-          `🩺 Enfermero #${index + 1}\n` +
-          `Nombre: ${n.name}\n` +
-          `Edad: ${n.age}\n` +
-          `Departamento: ${n.department}\n` +
-          `Experiencia: ${n.experience}\n` +
-          `Turno: ${n.shift}\n`
-        )
-        .join('\n-----------------------\n\n');
-    } else {
-      this.output = 'No se encontró ningún enfermero con ese nombre.';
+    if (!this.userInput.trim()) {
+      this.errorMessage = 'Por favor, ingresa un nombre';
+      this.searchResults = [];
+      return;
     }
+
+    this.nurseService.findByName(this.userInput).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.searchResults = response.data;
+          this.errorMessage = '';
+        } else {
+          this.searchResults = [];
+          this.errorMessage = response.message;
+        }
+      },
+      error: (error) => {
+        console.error('Error al buscar:', error);
+        this.errorMessage = 'Error al conectar con el servidor';
+        this.searchResults = [];
+      }
+    });
   }
 }
