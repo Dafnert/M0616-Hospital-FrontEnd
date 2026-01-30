@@ -22,6 +22,7 @@ export class NurseService{
     return this.conexHttp.post(this.url, nurse);
   }
 
+
   getAll(): Observable<Nurse[]> {
     return this.conexHttp.get<Nurse[]>(`${this.url}/index`);
   }
@@ -33,6 +34,8 @@ export class NurseService{
 readById(id: number): Observable<any> {
   return this.conexHttp.get<any>(`${this.url}/${id}`);
 }
+
+
 updateNurse(id: number, nurse: Nurse): Observable<any> {
   return this.conexHttp.put<any>(`${this.url}/${id}`, nurse);
 }
