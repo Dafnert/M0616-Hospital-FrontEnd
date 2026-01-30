@@ -3,8 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NurseService } from '../../services/nurse.service';
 
-
-
 @Component({
   selector: 'app-find-nurse',
   standalone: true,
@@ -14,7 +12,7 @@ import { NurseService } from '../../services/nurse.service';
 })
 export class FindNurseComponent {
   userInput: string = '';
-   searchResults: any[] = [];
+  searchResults: any[] = [];
   errorMessage: string = '';
 
   constructor(private nurseService: NurseService) {}
@@ -27,13 +25,13 @@ export class FindNurseComponent {
     }
 
     this.nurseService.findByName(this.userInput).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         if (response.success) {
           this.searchResults = response.data;
           this.errorMessage = '';
         } else {
           this.searchResults = [];
-          this.errorMessage = response.message;
+          this.errorMessage = response.message || 'No se encontraron resultados';
         }
       },
       error: (error) => {
