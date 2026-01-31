@@ -18,16 +18,27 @@ export class RegisterComponent {
   constructor(
     private nurseService: NurseService,
     private router: Router
-  ) {}
+  ) { }
 
   register() {
-    const success = this.nurseService.register(this.nurse);
+    this.nurseService.register(this.nurse).subscribe({
+      next: (response) => {
+        if (response.success) {
+          alert('Registro exitoso, inicia sesión');
+          this.router.navigate(['/login']);
+        } else {
+          alert('Error en el registro');
+        }
+      },
+      error: (err) => {
+        console.error(err);
 
-    if (success) {
-      alert('Registro exitoso, inicia sesión');
-      this.router.navigate(['/login']);
-    } else {
-      alert('El username ya existe');
-    }
+        if (err.status === 400) {
+          alert('Faltan campos obligatorios');
+        } else {
+          alert('Error al registrar el enfermero');
+        }
+      }
+    });
   }
 }
