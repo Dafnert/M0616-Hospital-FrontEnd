@@ -3,8 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NurseService } from '../../services/nurse.service';
 
-
-
 @Component({
   selector: 'app-find-nurse',
   standalone: true,
@@ -13,38 +11,34 @@ import { NurseService } from '../../services/nurse.service';
   styleUrls: ['./find-nurse.css']
 })
 export class FindNurseComponent {
-
   userInput: string = '';
-  output: string = '';
+  searchResults: any[] = [];
+  errorMessage: string = '';
 
   constructor(private nurseService: NurseService) {}
 
   findNurse(): void {
-  this.nurseService.findByName(this.userInput).subscribe({
-    next: (response: any) => {
-
-      const foundList = response.data ?? [];
-
-      if (foundList.length > 0) {
-        this.output = foundList
-          .map((n: any, index: number) =>
-            `🩺 Enfermero #${index + 1}\n` +
-            `Nombre: ${n.name}\n` +
-            `Apellido: ${n.surname}\n` +
-            `Edad: ${n.age}\n` +
-            `Especialidad: ${n.speciality}\n` +
-            `Usuario: ${n.username}\n`
-          )
-          .join('\n-----------------------\n\n');
-      } else {
-        this.output = 'No se encontró ningún enfermero con ese nombre.';
-      }
-    },
-    error: (err) => {
-      console.error(err);
-      this.output = 'Error al buscar enfermeros.';
+    if (!this.userInput.trim()) {
+      this.errorMessage = 'Por favor, ingresa un nombre';
+      this.searchResults = [];
+      return;
     }
-  });
-}
 
+    this.nurseService.findByName(this.userInput).subscribe({
+      next: (response: any) => {
+        if (response.success) {
+          this.searchResults = response.data;
+          this.errorMessage = '';
+        } else {
+          this.searchResults = [];
+          this.errorMessage = response.message || 'No se encontraron resultados';
+        }
+      },
+      error: (error) => {
+        console.error('Error al buscar:', error);
+        this.errorMessage = 'Error al conectar con el servidor';
+        this.searchResults = [];
+      }
+    });
+  }
 }

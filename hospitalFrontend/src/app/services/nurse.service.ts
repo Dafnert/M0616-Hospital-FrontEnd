@@ -22,6 +22,7 @@ export class NurseService{
     return this.conexHttp.post(this.url, nurse);
   }
 
+
   getAll(): Observable<Nurse[]> {
     return this.conexHttp.get<Nurse[]>(`${this.url}/index`);
   }
@@ -40,5 +41,3 @@ export class NurseService{
     return this.conexHttp.delete<any>(`${this.url}/${id}`);
   }
 }
-
-
