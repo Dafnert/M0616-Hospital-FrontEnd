@@ -1,24 +1,19 @@
-<!-- Login form -->
 <form (ngSubmit)="login()" #LoginForm="ngForm" method="post" id="Login">
-  <!-- Left section of the form -->
   <div class="left">
     <div>
       <p>HealthConnect</p>
       <img src="/img/logo.png" />
     </div>
 
-    <!-- @if - Mostrar intentos de login (ahora fuera del div centrado) -->
     @if (loginAttempts > 0) {
     <div class="attempts-badge">Intentos fallidos: {{ loginAttempts }}</div>
     }
   </div>
 
-  <!-- Right section of the form -->
   <div class="right">
     <div>
       <h1>Login</h1>
 
-      <!-- @switch - Mostrar diferentes estados del login -->
       @switch (loginStatus) { @case ('loading') {
       <div class="status-message loading">
         <span class="spinner">⏳</span>
@@ -34,7 +29,6 @@
       </div>
       } }
 
-      <!-- Username input field -->
       <input
         type="text"
         name="username"
@@ -44,7 +38,6 @@
       />
       <span class="material-symbols-outlined person"></span>
 
-      <!-- Password input field -->
       <input
         type="password"
         name="password"
@@ -54,7 +47,6 @@
       />
       <span class="material-symbols-outlined lock"></span>
 
-      <!-- Login button -->
       <button type="submit" [disabled]="isLoading || loginAttempts >= errorMessages.length">
         @if (isLoading) { Verificando... } @else { Login }
       </button>

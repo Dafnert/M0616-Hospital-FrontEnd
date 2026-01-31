@@ -1,8 +1,8 @@
-<form (ngSubmit)="open()" #profileForm="ngForm">
+<form #profileForm="ngForm">
 
   <div class="left">
     <div>
-      <h1>Profile</h1>
+      <h1>PERFIL</h1>
 
       <input
         type="text"
@@ -49,18 +49,31 @@
         [(ngModel)]="nurse.password"
         required
       />
-     <button type="submit" 
-       [disabled]="profileForm.invalid">
+      
+    </div>
+    <div class="buttons">
+      <button type="button" (click)="openUpdate()" [disabled]="profileForm.invalid">
         GUARDAR
-      </button> 
+      </button>
+      <button type="button" class="danger" (click)="openDelete()">
+        ELIMINAR CUENTA
+      </button>
     </div>
   </div>
 </form>
-      <div class="modal" *ngIf="confirm">
+      <div class="modal" *ngIf="confirmUpdate">
         <div class="modal-content">
           <h2>Confirmar cambios</h2>
-          <p>Estás seguro de modificar los datos?</p>
-          <button type="button" class="confirm" (click)="confirmUpdate()">Sí</button>
+          <p>¿Estás seguro de modificar los datos?</p>
+          <button type="button" class="confirm" (click)="confirmUpdateA()">Sí</button>
           <button type="button" class="cancel" (click)="cancelUpdate()">No</button>
+        </div>
+      </div>
+      <div class="modal" *ngIf="confirmDelete">
+        <div class="modal-content">
+          <h2>Eliminar cuenta</h2>
+          <p>¿Estás seguro de eliminar la cuenta?</p>
+          <button type="button" class="confirm" (click)="confirmDeleteA()">Sí</button>
+          <button type="button" class="cancel" (click)="cancelDelete()">No</button>
         </div>
       </div>

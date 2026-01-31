@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   id!: number;
  constructor(
     private _nurseService: NurseService,
+    private router: Router
   ) {}
 ngOnInit(): void {
   const storedId = localStorage.getItem('id');
@@ -63,15 +64,40 @@ ngOnInit(): void {
       }
     })
   }
-  confirm = false;
-  open():void{
-    this.confirm=true;
+  deleteById(): void {
+  this._nurseService.deleteById(this.id).subscribe({
+    next: (response) => {
+      if(response.success){
+        localStorage.removeItem('id');
+        this.router.navigate(['/login']);
+      } else {
+        alert(response.message);
+      }
+    },
+    error: (err) => { alert('ERROR DELETE NURSE'); }
+  });
+}
+
+  confirmUpdate = false;
+  confirmDelete=false;
+  openUpdate():void{
+    this.confirmUpdate=true;
   }
   cancelUpdate():void{
-    this.confirm=false;
+    this.confirmUpdate=false;
   }
-  confirmUpdate():void{
-    this.confirm=false;
+  confirmUpdateA():void{
+    this.confirmUpdate=false;
     this.updateNurse()
+  }
+  openDelete():void{
+    this.confirmDelete=true;
+  }
+  cancelDelete():void{
+    this.confirmDelete=false;
+  }
+  confirmDeleteA():void{
+    this.confirmDelete=false;
+    this.deleteById()
   }
 }
