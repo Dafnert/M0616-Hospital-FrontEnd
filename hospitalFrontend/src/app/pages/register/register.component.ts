@@ -22,24 +22,21 @@ export class RegisterComponent {
 
   register() {
     this.nurseService.register(this.nurse).subscribe({
-      next: (response) => {
-        if (response.success) {
-          alert(' Registro exitoso, inicia sesión');
-          this.router.navigate(['/login']);
-        } else {
-          alert(' Error en el registro');
-        }
+      next: () => {
+        alert('Registro exitoso, inicia sesión');
+        this.router.navigate(['/login']);
       },
       error: (err) => {
         console.error(err);
 
         if (err.status === 400) {
-          alert(' Faltan campos obligatorios');
+          alert('Faltan campos obligatorios');
+        } else if (err.status === 409) {
+          alert('El username ya existe');
         } else {
-          alert(' Error al registrar el enfermero');
+          alert('Error al registrar el enfermero');
         }
       }
     });
   }
-
 }
