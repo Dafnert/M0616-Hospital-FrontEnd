@@ -31,14 +31,13 @@ export class NurseService{
     return this.conexHttp.get<Nurse[]>(`${this.url}/name/${name}`);
   }
 
-readById(id: number): Observable<any> {
-  return this.conexHttp.get<any>(`${this.url}/${id}`);
+  readById(id: number): Observable<any> {
+    return this.conexHttp.get<any>(`${this.url}/${id}`);
+  }
+  updateNurse(id: number, nurse: Nurse): Observable<any> {
+    return this.conexHttp.put<any>(`${this.url}/${id}`, nurse);
+  }
+  deleteById(id:number):Observable<any>{
+    return this.conexHttp.delete<any>(`${this.url}/${id}`);
+  }
 }
-
-
-updateNurse(id: number, nurse: Nurse): Observable<any> {
-  return this.conexHttp.put<any>(`${this.url}/${id}`, nurse);
-}
-}
-
-
