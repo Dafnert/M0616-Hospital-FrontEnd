@@ -19,7 +19,7 @@ export class NurseService{
   }
  
   register(nurse: Nurse): Observable<any> {
-    return this.conexHttp.post(this.url, nurse);
+  return this.conexHttp.post(`${this.url}/`, nurse);
   }
 
 
