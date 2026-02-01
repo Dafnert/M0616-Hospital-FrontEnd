@@ -13,6 +13,8 @@ import { Nurse } from '../../models/nurse';
   styleUrls: ['./list-nurses.css']
 })
 export class ListnursesComponent implements OnInit {
+  private BACKEND_URL = 'http://localhost:8000';
+
   title: string = "Hospital Management";
   logoAlt: string = "Logo hospital";
 
@@ -23,17 +25,20 @@ export class ListnursesComponent implements OnInit {
     this.getAll();
   }
 
-  getAll(): void {
+ getAll(): void {
   this._nurseService.getAll().subscribe({
-  next: (data: any[]) => {
-    this.nurses = data.map(n => ({
-      ...n,
-      specialty: n.speciality,
-      img: '/img/images.jpg'
-    }));
-  }
-});
+    next: (data: any[]) => {
+      this.nurses = data.map(n => ({
+        ...n,
+        img: this.BACKEND_URL + n.img
+      }));
+    },
+    error: (err) => console.error(err)
+  });
 }
+
+
+
 
 
   toggleView(): void {
